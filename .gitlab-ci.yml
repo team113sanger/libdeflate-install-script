@@ -1,5 +1,6 @@
 stages:
   - test-one
+  - test-many
 
 include:
   - project: 'team113sanger/common/cicd-template'
