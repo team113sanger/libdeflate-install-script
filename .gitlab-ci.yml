@@ -57,10 +57,10 @@ include:
     - echo "CANDIDATE_IMAGE=${CANDIDATE_IMAGE}"
     - echo "DOCKER_BUILD_CONTEXT=${DOCKER_BUILD_CONTEXT}"
     - echo "TEST_FILE=${TEST_FILE}"
-    # From 1.13 to 1.20
+    # From v1.9 to v1.14
     - BUILT_IMAGE="libdeflate"
     - LIBDEFLATE_VERSION=""
-    - MULTIPLE_VERSIONS=(1.13 1.14 1.15.1 1.16 1.17 1.18 1.19 1.20)
+    - MULTIPLE_VERSIONS=(v1.9 v1.10 v1.11 v1.12 v1.13 v1.14)
     - echo "Multiple versions to build and test ${MULTIPLE_VERSIONS[@]}"
     #
     - test -f ${DOCKERFILE_PATH:?}
@@ -171,29 +171,29 @@ test-one-python-custom:
   extends:
       - .template_job__build_one_and_test
 
-# test-many-ubuntu22-usr_local:
-#   stage: test-many
-#   variables:
-#     PRE_FETCH_BASE_IMAGE: ubuntu:22.04
-#     IMAGE_TAG_SUFFIX: "-ubuntu22.usr_local"
-#     DOCKERFILE_PATH: Dockerfile.ubuntu22.usr_local
-#   extends:
-#       - .template_job__build_many_and_test
+test-many-ubuntu22-usr_local:
+  stage: test-many
+  variables:
+    PRE_FETCH_BASE_IMAGE: ubuntu:22.04
+    IMAGE_TAG_SUFFIX: "-ubuntu22.usr_local"
+    DOCKERFILE_PATH: Dockerfile.ubuntu22.usr_local
+  extends:
+      - .template_job__build_many_and_test
 
-# test-many-python-usr_local:
-#   stage: test-many
-#   variables:
-#     PRE_FETCH_BASE_IMAGE: python:3.11.9-slim-bookworm
-#     IMAGE_TAG_SUFFIX: "-python.usr_local"
-#     DOCKERFILE_PATH: Dockerfile.python.usr_local
-#   extends:
-#       - .template_job__build_many_and_test
+test-many-python-usr_local:
+  stage: test-many
+  variables:
+    PRE_FETCH_BASE_IMAGE: python:3.11.9-slim-bookworm
+    IMAGE_TAG_SUFFIX: "-python.usr_local"
+    DOCKERFILE_PATH: Dockerfile.python.usr_local
+  extends:
+      - .template_job__build_many_and_test
 
-# test-many-base_r-usr_local:
-#   stage: test-many
-#   variables:
-#     PRE_FETCH_BASE_IMAGE: r-base:4.2.3
-#     IMAGE_TAG_SUFFIX: "-rbase.usr_local"
-#     DOCKERFILE_PATH: Dockerfile.rbase.usr_local
-#   extends:
-#       - .template_job__build_many_and_test
+test-many-base_r-usr_local:
+  stage: test-many
+  variables:
+    PRE_FETCH_BASE_IMAGE: r-base:4.2.3
+    IMAGE_TAG_SUFFIX: "-rbase.usr_local"
+    DOCKERFILE_PATH: Dockerfile.rbase.usr_local
+  extends:
+      - .template_job__build_many_and_test

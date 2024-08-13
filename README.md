@@ -4,6 +4,8 @@ A script to install libdeflate on a linux system.
 
 Tested against Docker images for Ubuntu 22.04, R Base 4.2.3 and Python 3.11.9 (slim-bookworm) for multiple versions of libdeflate.
 
+Only v1.9 to v1.14 are currently supported.
+
 ## Installation
 
 **The easiset way is to look at the Dockerfiles in the repository** as this is tested and under CI.
@@ -28,7 +30,7 @@ export PKG_CONFIG_PATH=/path/to/install/lib/pkgconfig:$PKG_CONFIG_PATH
 
 ## Requirements
 
-The requirements for the script and the installation of htslib are the same
+The requirements for the script and the installation of libdeflate are the same
 across all Dockerfiles. Read the Dockerfiles to see the exact requirements.
 
 
@@ -41,3 +43,20 @@ The testing of script is done using Docker images to capture the minimal install
 | v1.9           | Ubuntu 22.04                               | ✅ | ✅ |
 | v1.9           | R-Base 4.2.3 (*Debian*)                    | ✅ | ✅ |
 | v1.9           | Python 3.11.9 (*Debian* slim-bookworm)     | ✅ | ✅ |
+| v1.10          | Ubuntu 22.04                               | ✅ | ✅ |
+| v1.10          | R-Base 4.2.3  (*Debian*)                   | ✅ | ✅ |
+| v1.10          | Python 3.11.9 (*Debian* slim-bookworm)     | ✅ | ✅ |
+| v1.11          | Ubuntu 22.04                               | ✅ | ✅ |
+| v1.11          | R-Base 4.2.3 (*Debian*)                    | ✅ | ✅ |
+| v1.11          | Python 3.11.9 (*Debian* slim-bookworm)     | ✅ | ✅ |
+| v1.12          | Ubuntu 22.04                               | ✅ | ✅ |
+| v1.12          | R-Base 4.2.3 (*Debian*)                    | ✅ | ✅ |
+| v1.12          | Python 3.11.9 (*Debian* slim-bookworm)     | ✅ | ✅ |
+| v1.13          | Ubuntu 22.04                               | ✅ | ✅ |
+| v1.13          | R-Base 4.2.3 (*Debian*)                    | ✅ | ✅ |
+| v1.13          | Python 3.11.9 (*Debian* slim-bookworm)     | ✅ | ✅ |
+| v1.14          | Ubuntu 22.04                               | ✅ | ✅ |
+| v1.14          | R-Base 4.2.3 (*Debian*)                    | ✅ | ✅ |
+| v1.14          | Python 3.11.9 (*Debian* slim-bookworm)     | ✅ | ✅ |
+
+v1.15 and above are not supported as they require the script to be updated to use the new build system (switch from `make` to `cmake`).
