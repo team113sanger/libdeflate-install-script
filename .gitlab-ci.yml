@@ -21,7 +21,7 @@ include:
     TEST_FILE: run_tests.sh
     DOCKERFILE_PATH: "" # Must be set in the job definition
     DOCKER_BUILD_CONTEXT: .
-    HTSLIB_VERSION: "v1.9"
+    LIBDEFLATE_VERSION: "v1.9"
 
 .generic-script_build_once:
   script:
@@ -32,20 +32,20 @@ include:
     - echo "CANDIDATE_IMAGE=${CANDIDATE_IMAGE}"
     - echo "DOCKER_BUILD_CONTEXT=${DOCKER_BUILD_CONTEXT}"
     - echo "TEST_FILE=${TEST_FILE}"
-    - echo "HTSLIB_VERSION=${HTSLIB_VERSION}"
+    - echo "LIBDEFLATE_VERSION=${LIBDEFLATE_VERSION}"
     #
     - test -f ${DOCKERFILE_PATH:?}
     #
     # Build the image
     #
-    - BUILD_CMD="docker build --target ${DOCKER_TARGET_STAGE:?} -t ${CANDIDATE_IMAGE:?} -f ${DOCKERFILE_PATH:?} --build-arg HTSLIB_VERSION=${HTSLIB_VERSION:?} --progress=plain ${DOCKER_BUILD_CONTEXT:?}"
+    - BUILD_CMD="docker build --target ${DOCKER_TARGET_STAGE:?} -t ${CANDIDATE_IMAGE:?} -f ${DOCKERFILE_PATH:?} --build-arg LIBDEFLATE_VERSION=${LIBDEFLATE_VERSION:?} --progress=plain ${DOCKER_BUILD_CONTEXT:?}"
     - echo "Running build command ${BUILD_CMD}"
     - eval ${BUILD_CMD}
     #
     # Test the image
     #
     - docker run --rm ${CANDIDATE_IMAGE:?} ls -l ${TEST_FILE:?}
-    - docker run --rm ${CANDIDATE_IMAGE:?} bash ${TEST_FILE:?} ${HTSLIB_VERSION:?}
+    - docker run --rm ${CANDIDATE_IMAGE:?} bash ${TEST_FILE:?} ${LIBDEFLATE_VERSION:?}
     - echo "Build and test completed successfully"
   
 .generic-script_build_many:
@@ -58,8 +58,8 @@ include:
     - echo "DOCKER_BUILD_CONTEXT=${DOCKER_BUILD_CONTEXT}"
     - echo "TEST_FILE=${TEST_FILE}"
     # From 1.13 to 1.20
-    - BUILT_IMAGE="htslib"
-    - HTSLIB_VERSION=""
+    - BUILT_IMAGE="libdeflate"
+    - LIBDEFLATE_VERSION=""
     - MULTIPLE_VERSIONS=(1.13 1.14 1.15.1 1.16 1.17 1.18 1.19 1.20)
     - echo "Multiple versions to build and test ${MULTIPLE_VERSIONS[@]}"
     #
@@ -69,8 +69,8 @@ include:
     #
     - |2
       echo "Building the image for each version"
-      for HTSLIB_VERSION in ${MULTIPLE_VERSIONS[@]}; do
-        BUILD_CMD="docker build --target ${DOCKER_TARGET_STAGE:?} -t ${BUILT_IMAGE:?}:${HTSLIB_VERSION:?} -f ${DOCKERFILE_PATH:?} --build-arg HTSLIB_VERSION=${HTSLIB_VERSION:?} ${DOCKER_BUILD_CONTEXT:?}"
+      for LIBDEFLATE_VERSION in ${MULTIPLE_VERSIONS[@]}; do
+        BUILD_CMD="docker build --target ${DOCKER_TARGET_STAGE:?} -t ${BUILT_IMAGE:?}:${LIBDEFLATE_VERSION:?} -f ${DOCKERFILE_PATH:?} --build-arg LIBDEFLATE_VERSION=${LIBDEFLATE_VERSION:?} ${DOCKER_BUILD_CONTEXT:?}"
         # Print the build command in blue so it is easy to see in the long log
         echo ""
         echo ""
@@ -84,14 +84,14 @@ include:
     #
     - |2
       echo "Testing the image for each version"
-      for HTSLIB_VERSION in ${MULTIPLE_VERSIONS[@]}; do
+      for LIBDEFLATE_VERSION in ${MULTIPLE_VERSIONS[@]}; do
         # Print the test command in purple so it is easy to see in the long log
         echo ""
         echo ""
         echo ""
-        echo -e "\033[0;35mTesting image ${BUILT_IMAGE:?}:${HTSLIB_VERSION:?}\033[0m"
-        docker run --rm ${BUILT_IMAGE:?}:${HTSLIB_VERSION:?} ls -l ${TEST_FILE:?}
-        docker run --rm ${BUILT_IMAGE:?}:${HTSLIB_VERSION:?} bash ${TEST_FILE:?} ${HTSLIB_VERSION:?}
+        echo -e "\033[0;35mTesting image ${BUILT_IMAGE:?}:${LIBDEFLATE_VERSION:?}\033[0m"
+        docker run --rm ${BUILT_IMAGE:?}:${LIBDEFLATE_VERSION:?} ls -l ${TEST_FILE:?}
+        docker run --rm ${BUILT_IMAGE:?}:${LIBDEFLATE_VERSION:?} bash ${TEST_FILE:?} ${LIBDEFLATE_VERSION:?}
       done
     - echo "Build and test completed successfully"
     
