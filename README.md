@@ -4,7 +4,7 @@ A script to install libdeflate on a linux system.
 
 Tested against Docker images for Ubuntu 22.04, R Base 4.2.3 and Python 3.11.9 (slim-bookworm) for multiple versions of libdeflate.
 
-Only v1.9 to v1.14 are currently supported.
+Only v1.9 to v1.20 are supported.
 
 ## Installation
 
@@ -38,25 +38,43 @@ across all Dockerfiles. Read the Dockerfiles to see the exact requirements.
 
 The testing of script is done using Docker images to capture the minimal installation requirements.
 
-| LibDeflate Version | Environment | Default install `/usr/local` | Custom install `/opt/install` |
-| --------------- | ----------- | ---------------------------- | ----------------------------- |
-| v1.9           | Ubuntu 22.04                               | ✅ | ✅ |
-| v1.9           | R-Base 4.2.3 (*Debian*)                    | ✅ | ✅ |
-| v1.9           | Python 3.11.9 (*Debian* slim-bookworm)     | ✅ | ✅ |
-| v1.10          | Ubuntu 22.04                               | ✅ | ✅ |
-| v1.10          | R-Base 4.2.3  (*Debian*)                   | ✅ | ✅ |
-| v1.10          | Python 3.11.9 (*Debian* slim-bookworm)     | ✅ | ✅ |
-| v1.11          | Ubuntu 22.04                               | ✅ | ✅ |
-| v1.11          | R-Base 4.2.3 (*Debian*)                    | ✅ | ✅ |
-| v1.11          | Python 3.11.9 (*Debian* slim-bookworm)     | ✅ | ✅ |
-| v1.12          | Ubuntu 22.04                               | ✅ | ✅ |
-| v1.12          | R-Base 4.2.3 (*Debian*)                    | ✅ | ✅ |
-| v1.12          | Python 3.11.9 (*Debian* slim-bookworm)     | ✅ | ✅ |
-| v1.13          | Ubuntu 22.04                               | ✅ | ✅ |
-| v1.13          | R-Base 4.2.3 (*Debian*)                    | ✅ | ✅ |
-| v1.13          | Python 3.11.9 (*Debian* slim-bookworm)     | ✅ | ✅ |
-| v1.14          | Ubuntu 22.04                               | ✅ | ✅ |
-| v1.14          | R-Base 4.2.3 (*Debian*)                    | ✅ | ✅ |
-| v1.14          | Python 3.11.9 (*Debian* slim-bookworm)     | ✅ | ✅ |
+New versions of libdeflate require `cmake` to build (v1.15 and above).
 
-v1.15 and above are not supported as they require the script to be updated to use the new build system (switch from `make` to `cmake`).
+| LibDeflate Version | Environment | Default install `/usr/local` | Custom install `/opt/install` | `make` or `cmake` |
+| --------------- | ----------- | ---------------------------- | ----------------------------- | ----------------- |
+| v1.9           | Ubuntu 22.04                               | ✅ | ✅ | `make` |
+| v1.9           | R-Base 4.2.3 (*Debian*)                    | ✅ | ✅ | `make` |
+| v1.9           | Python 3.11.9 (*Debian* slim-bookworm)     | ✅ | ✅ | `make` |
+| v1.10          | Ubuntu 22.04                               | ✅ | ✅ | `make` |
+| v1.10          | R-Base 4.2.3  (*Debian*)                   | ✅ | ✅ | `make` |
+| v1.10          | Python 3.11.9 (*Debian* slim-bookworm)     | ✅ | ✅ | `make` |
+| v1.11          | Ubuntu 22.04                               | ✅ | ✅ | `make` |
+| v1.11          | R-Base 4.2.3 (*Debian*)                    | ✅ | ✅ | `make` |
+| v1.11          | Python 3.11.9 (*Debian* slim-bookworm)     | ✅ | ✅ | `make` |
+| v1.12          | Ubuntu 22.04                               | ✅ | ✅ | `make` |
+| v1.12          | R-Base 4.2.3 (*Debian*)                    | ✅ | ✅ | `make` |
+| v1.12          | Python 3.11.9 (*Debian* slim-bookworm)     | ✅ | ✅ | `make` |
+| v1.13          | Ubuntu 22.04                               | ✅ | ✅ | `make` |
+| v1.13          | R-Base 4.2.3 (*Debian*)                    | ✅ | ✅ | `make` |
+| v1.13          | Python 3.11.9 (*Debian* slim-bookworm)     | ✅ | ✅ | `make` |
+| v1.14          | Ubuntu 22.04                               | ✅ | ✅ | `make` |
+| v1.14          | R-Base 4.2.3 (*Debian*)                    | ✅ | ✅ | `make` |
+| v1.14          | Python 3.11.9 (*Debian* slim-bookworm)     | ✅ | ✅ | `make` |
+| v1.15          | Ubuntu 22.04                               | ✅ | ✅ | `cmake` |
+| v1.15          | R-Base 4.2.3 (*Debian*)                    | ✅ | ✅ | `cmake` |
+| v1.15          | Python 3.11.9 (*Debian* slim-bookworm)     | ✅ | ✅ | `cmake` |
+| v1.16          | Ubuntu 22.04                               | ✅ | ✅ | `cmake` |
+| v1.16          | R-Base 4.2.3 (*Debian*)                    | ✅ | ✅ | `cmake` |
+| v1.16          | Python 3.11.9 (*Debian* slim-bookworm)     | ✅ | ✅ | `cmake` |
+| v1.17          | Ubuntu 22.04                               | ✅ | ✅ | `cmake` |
+| v1.17          | R-Base 4.2.3 (*Debian*)                    | ✅ | ✅ | `cmake` |
+| v1.17          | Python 3.11.9 (*Debian* slim-bookworm)     | ✅ | ✅ | `cmake` |
+| v1.18          | Ubuntu 22.04                               | ✅ | ✅ | `cmake` |
+| v1.18          | R-Base 4.2.3 (*Debian*)                    | ✅ | ✅ | `cmake` |
+| v1.18          | Python 3.11.9 (*Debian* slim-bookworm)     | ✅ | ✅ | `cmake` |
+| v1.19          | Ubuntu 22.04                               | ✅ | ✅ | `cmake` |
+| v1.19          | R-Base 4.2.3 (*Debian*)                    | ✅ | ✅ | `cmake` |
+| v1.19          | Python 3.11.9 (*Debian* slim-bookworm)     | ✅ | ✅ | `cmake` |
+| v1.20          | Ubuntu 22.04                               | ✅ | ✅ | `cmake` |
+| v1.20          | R-Base 4.2.3 (*Debian*)                    | ✅ | ✅ | `cmake` |
+| v1.20          | Python 3.11.9 (*Debian* slim-bookworm)     | ✅ | ✅ | `cmake` |
