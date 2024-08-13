@@ -51,6 +51,7 @@ else
     echo -e "${RED}FAIL${NC}: Version mismatch. Expected $EXPECTED_VERSION, got $actual_version"
     exit 1
 fi
+
 # Test 4: Check for libdeflate executables
 echo "Test 4: Checking for libdeflate executables..."
 for exe in libdeflate-gzip libdeflate-gunzip; do

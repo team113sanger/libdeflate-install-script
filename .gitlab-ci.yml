@@ -135,41 +135,41 @@ test-one-ubuntu22-custom:
   extends:
       - .template_job__build_one_and_test
 
-# test-one-base_r-usr_local:
-#   stage: test-one
-#   variables:
-#     PRE_FETCH_BASE_IMAGE: r-base:4.2.3
-#     IMAGE_TAG_SUFFIX: "-rbase.usr_local"
-#     DOCKERFILE_PATH: Dockerfile.rbase.usr_local
-#   extends:
-#       - .template_job__build_one_and_test
+test-one-base_r-usr_local:
+  stage: test-one
+  variables:
+    PRE_FETCH_BASE_IMAGE: r-base:4.2.3
+    IMAGE_TAG_SUFFIX: "-rbase.usr_local"
+    DOCKERFILE_PATH: Dockerfile.rbase.usr_local
+  extends:
+      - .template_job__build_one_and_test
 
-# test-one-base_r-custom:
-#   stage: test-one
-#   variables:
-#     PRE_FETCH_BASE_IMAGE: r-base:4.2.3
-#     IMAGE_TAG_SUFFIX: "-rbase.custom"
-#     DOCKERFILE_PATH: Dockerfile.rbase.custom
-#   extends:
-#       - .template_job__build_one_and_test
+test-one-base_r-custom:
+  stage: test-one
+  variables:
+    PRE_FETCH_BASE_IMAGE: r-base:4.2.3
+    IMAGE_TAG_SUFFIX: "-rbase.custom"
+    DOCKERFILE_PATH: Dockerfile.rbase.custom
+  extends:
+      - .template_job__build_one_and_test
 
-# test-one-python-usr_local:
-#   stage: test-one
-#   variables:
-#     PRE_FETCH_BASE_IMAGE: python:3.11.9-slim-bookworm
-#     IMAGE_TAG_SUFFIX: "-python.usr_local"
-#     DOCKERFILE_PATH: Dockerfile.python.usr_local
-#   extends:
-#       - .template_job__build_one_and_test
+test-one-python-usr_local:
+  stage: test-one
+  variables:
+    PRE_FETCH_BASE_IMAGE: python:3.11.9-slim-bookworm
+    IMAGE_TAG_SUFFIX: "-python.usr_local"
+    DOCKERFILE_PATH: Dockerfile.python.usr_local
+  extends:
+      - .template_job__build_one_and_test
 
-# test-one-python-custom:
-#   stage: test-one
-#   variables:
-#     PRE_FETCH_BASE_IMAGE: python:3.11.9-slim-bookworm
-#     IMAGE_TAG_SUFFIX: "-python.custom"
-#     DOCKERFILE_PATH: Dockerfile.python.custom
-#   extends:
-#       - .template_job__build_one_and_test
+test-one-python-custom:
+  stage: test-one
+  variables:
+    PRE_FETCH_BASE_IMAGE: python:3.11.9-slim-bookworm
+    IMAGE_TAG_SUFFIX: "-python.custom"
+    DOCKERFILE_PATH: Dockerfile.python.custom
+  extends:
+      - .template_job__build_one_and_test
 
 # test-many-ubuntu22-usr_local:
 #   stage: test-many
