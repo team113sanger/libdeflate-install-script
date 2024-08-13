@@ -305,7 +305,33 @@ function get_cpu_count() {
     fi
 }
 
-function install() {
+version_compare() {
+    echo "$@" | awk -F. '{ printf("%d%03d%03d%03d\n", $1,$2,$3,$4); }';
+}
+
+install_libdeflate() {
+    local version="$1"
+    local install_dir="$2"
+    local work_dir="$3"
+    local is_default_install_dir="$4"
+
+    # Remove 'v' prefix if present
+    version=${version#v}
+
+    if [ $(version_compare "$version") -lt $(version_compare "1.9") ]; then
+        print_error "LibDeflate version $version is not supported. Minimum supported version is 1.9."
+        exit 1
+    elif [ $(version_compare "$version") -ge $(version_compare "1.15") ]; then
+        print_info "Installing LibDeflate version $version using new method (CMake)"
+        install_new "$install_dir" "$work_dir" "$is_default_install_dir"
+    else
+        print_info "Installing LibDeflate version $version using old method (Make)"
+        install_old "$install_dir" "$work_dir" "$is_default_install_dir"
+    fi
+}
+
+function install_old() {
+  # Install the program using the old method (Make)
   local install_dir="${1}"
   local work_dir="${2}"
   local is_default_install_dir="${3}"
@@ -322,6 +348,35 @@ function install() {
 
   print_info "Running make install"
   make -j${cpu_count:?} CFLAGS="-fPIC -O3" install
+}
+
+function install_new() {
+  # Install the program using the new method (CMake)
+  local install_dir="${1}"
+  local work_dir="${2}"
+  local is_default_install_dir="${3}"
+  local cpu_count=$(get_cpu_count 6)
+
+  print_info "Changing current directory to ${work_dir:?}"
+  cd "${work_dir:?}"
+
+  # Set up CMake build directory
+  print_info "Setting up CMake build directory"
+  cmake -B build
+
+  # Set the installation prefix if it's not the default
+  if [ "${is_default_install_dir:?}" -eq 0 ]; then
+    print_info "Setting CMAKE_INSTALL_PREFIX=${install_dir:?} because it is not the default install directory"
+    cmake -B build -DCMAKE_INSTALL_PREFIX="${install_dir:?}"
+  fi
+
+  # Build the project
+  print_info "Building the project"
+  cmake --build build -j${cpu_count:?}
+
+  # Install the project
+  print_info "Installing the project"
+  cmake --install build
 }
 
 function clean_up() {
@@ -362,7 +417,7 @@ function main() {
   export MANPATH=$(clean_path_strings "${MANPATH:?}")
 
   # Run the installation
-  install "${install_dir:?}" "${unpack_dir:?}" "${is_default_install_dir:?}"
+  install_libdeflate "${program_version:?}" "${install_dir:?}" "${unpack_dir:?}" "${is_default_install_dir:?}"
 
   # Clean up the installation directory
   clean_up "${setup_dir:?}" "${tarball:?}"

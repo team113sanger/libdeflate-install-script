@@ -58,10 +58,10 @@ include:
     - echo "CANDIDATE_IMAGE=${CANDIDATE_IMAGE}"
     - echo "DOCKER_BUILD_CONTEXT=${DOCKER_BUILD_CONTEXT}"
     - echo "TEST_FILE=${TEST_FILE}"
-    # From v1.9 to v1.14
+    # From v1.9 to v1.20
     - BUILT_IMAGE="libdeflate"
     - LIBDEFLATE_VERSION=""
-    - MULTIPLE_VERSIONS=(v1.9 v1.10 v1.11 v1.12 v1.13 v1.14)
+    - MULTIPLE_VERSIONS=(v1.9 v1.10 v1.11 v1.12 v1.13 v1.14 v1.15 v1.16 v1.17 v1.18 v1.19 v1.20)
     - echo "Multiple versions to build and test ${MULTIPLE_VERSIONS[@]}"
     #
     - test -f ${DOCKERFILE_PATH:?}
