@@ -5,7 +5,8 @@ A convenience script to install any version of `libdeflate` on an Ubuntu (`22.04
 ## Table of Contents
 
 - [Description](#description)
-- [Installation](#installation)
+- [Installation - quick start](#installation---quick-start)
+- [Installation - controlling the install location](#installation---controlling-the-install-location)
 - [Requirements](#requirements)
 - [Testing](#testing)
 - [Development](#development)
@@ -23,7 +24,24 @@ The script encapsulates the steps to download, configure, compile and install
 The script is tested via a private GitLab CICD against Ubuntu 22.04 and Debian
 bookworm with popular Docker images.
 
-## Installation
+## Installation - quick start
+
+With a single command the script can be downloaded and installed. For details on how to install to a custom location, see [Installation - controlling the install location](#installation---controlling-the-install-location) section.
+
+Various version of the script can be downloaded from the [releases page](https://github.com/team113sanger/libdeflate-install-script/releases).
+
+```bash
+LIBDEFLATE_VERSION="v1.9"
+
+curl -sSL "https://github.com/team113sanger/libdeflate-install-script/releases/download/1.0.0/install_libdeflate.sh" | bash -s -- $LIBDEFLATE_VERSION
+# or with wget if curl is not available
+
+wget -qO- "https://github.com/team113sanger/libdeflate-install-script/releases/download/1.0.0/install_libdeflate.sh" | bash -s -- $LIBDEFLATE_VERSION
+```
+
+See `docker/Dockerfile.ubuntu22.via_github` for an example of how to use the script in a Dockerfile.
+
+## Installation - controlling the install location
 
 **The easiset way is to look at the Dockerfiles in the repository** as this is tested and under CI.
 
@@ -126,3 +144,12 @@ To test
 VERSION=v1.11
 docker run --rm example:local bash run_tests.sh $VERSION
 ```
+
+## Cutting a release
+
+To cut a release, update the version in the script and the README.md. This
+repository uses [semantic versioning](https://semver.org/spec/v2.0.0.html).
+
+Tests are automatically run in the GitLab CI pipeline.
+
+Tags will automatically create releases on GitHub.
