@@ -1,0 +1,28 @@
+name: Release on Tag
+
+on:
+  workflow_dispatch: # TODO - Remove after testing
+  create:
+    types: [created]
+  push: # TODO - Remove after testing
+    branches:
+      - develop
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    if: github.event.ref_type == 'tag' || github.event_name == 'workflow_dispatch'
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Create Release
+        uses: softprops/action-gh-release@v1
+        with:
+          files: install_libdeflate.sh
+          tag_name: ${{ github.ref }}
+          name: Release ${{ github.ref }}
+          draft: false
+          prerelease: false
+          token: ${{ secrets.GITHUB_TOKEN }}
