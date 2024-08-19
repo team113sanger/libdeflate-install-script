@@ -16,7 +16,7 @@ PROGRAM_NAME="libdeflate"
 DEFAULT_INSTALL_DIR="/usr/local"
 TARBALL_SUFFIX=".tar.gz"
 SCRIPT_VERSION="1.0.0"
-REQUIRED_PROGRAMS=(curl make gcc tar sed)
+REQUIRED_PROGRAMS=(curl make gcc tar sed cmake)  # cmake is required for versions >= 1.15
 URL_TEMPLATE="https://github.com/ebiggers/libdeflate/archive/{}.tar.gz"
 
 ### FUNCTIONS ###
