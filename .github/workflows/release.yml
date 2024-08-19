@@ -23,7 +23,6 @@ jobs:
         uses: softprops/action-gh-release@v2
         with:
           files: install_libdeflate.sh
-          tag_name: ${{ github.ref_name }}
           name: Release ${{ github.ref_name }}
           body: |
             Auto-generated release for ${{ github.ref_name }}
