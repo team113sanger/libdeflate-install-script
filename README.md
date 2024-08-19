@@ -32,7 +32,7 @@ Various version of the script can be downloaded from the [releases page](https:/
 
 ```bash
 LIBDEFLATE_VERSION="v1.9"
-DOWNLOAD_URL="https://github.com/team113sanger/libdeflate-install-script/releases/download/1.0.0/install_libdeflate.sh"
+DOWNLOAD_URL="https://github.com/team113sanger/libdeflate-install-script/releases/download/1.0.1/install_libdeflate.sh"
 
 curl -sSL $DOWNLOAD_URL | bash -s -- $LIBDEFLATE_VERSION
 
