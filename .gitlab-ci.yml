@@ -3,10 +3,9 @@ stages:
   - test-many
 
 include:
-  - project: 'team113sanger/common/cicd-template'
-    ref: 0.3.3 # Use the latest Git Tag or if experimenting with new components use a Git SHA
-    file: '.gitlab-ci-components.yml'
-
+  - project: "team113sanger/common/cicd-template"
+    ref: 0.3.4 # Use the latest Git Tag or if experimenting with new components use a Git SHA
+    file: ".gitlab-ci-components.yml"
 
 #############
 # TEMPLATES #
@@ -27,7 +26,7 @@ include:
 .generic-script_build_once:
   script:
     - echo "Running a build and then test for the image"
-    # 
+    #
     - echo "DOCKERFILE_PATH=${DOCKERFILE_PATH}"
     - echo "DOCKER_TARGET_STAGE=${DOCKER_TARGET_STAGE}"
     - echo "CANDIDATE_IMAGE=${CANDIDATE_IMAGE}"
@@ -48,11 +47,11 @@ include:
     - docker run --rm ${CANDIDATE_IMAGE:?} ls -l ${TEST_FILE:?}
     - docker run --rm ${CANDIDATE_IMAGE:?} bash ${TEST_FILE:?} ${LIBDEFLATE_VERSION:?}
     - echo "Build and test completed successfully"
-  
+
 .generic-script_build_many:
   script:
     - echo "Running a build and then test for the image"
-    # 
+    #
     - echo "DOCKERFILE_PATH=${DOCKERFILE_PATH}"
     - echo "DOCKER_TARGET_STAGE=${DOCKER_TARGET_STAGE}"
     - echo "CANDIDATE_IMAGE=${CANDIDATE_IMAGE}"
@@ -95,7 +94,6 @@ include:
         docker run --rm ${BUILT_IMAGE:?}:${LIBDEFLATE_VERSION:?} bash ${TEST_FILE:?} ${LIBDEFLATE_VERSION:?}
       done
     - echo "Build and test completed successfully"
-    
 
 .template_job__build_one_and_test:
   extends:
@@ -104,6 +102,7 @@ include:
     - .generic-script_build_once
     - .component-after_script
     - .component-tags-shared-runner
+    - .component-rules-except-release
 
 .template_job__build_many_and_test:
   extends:
@@ -112,11 +111,20 @@ include:
     - .generic-script_build_many
     - .component-after_script
     - .component-tags-shared-runner
-
+    - .component-rules-develop-feature-hotfix-only
 
 ############
 #   JOBS   #
 ############
+
+test-one-ubuntu22-via_github:
+  stage: test-one
+  variables:
+    PRE_FETCH_BASE_IMAGE: ubuntu:22.04
+    IMAGE_TAG_SUFFIX: "-ubuntu22.via_github"
+    DOCKERFILE_PATH: docker/Dockerfile.ubuntu22.via_github
+  extends:
+    - .template_job__build_one_and_test
 
 test-one-ubuntu22-usr_local:
   stage: test-one
@@ -125,7 +133,7 @@ test-one-ubuntu22-usr_local:
     IMAGE_TAG_SUFFIX: "-ubuntu22.usr_local"
     DOCKERFILE_PATH: docker/Dockerfile.ubuntu22.usr_local
   extends:
-      - .template_job__build_one_and_test
+    - .template_job__build_one_and_test
 
 test-one-ubuntu22-custom:
   stage: test-one
@@ -134,7 +142,7 @@ test-one-ubuntu22-custom:
     IMAGE_TAG_SUFFIX: "-ubuntu22.custom"
     DOCKERFILE_PATH: docker/Dockerfile.ubuntu22.custom
   extends:
-      - .template_job__build_one_and_test
+    - .template_job__build_one_and_test
 
 test-one-base_r-usr_local:
   stage: test-one
@@ -143,7 +151,7 @@ test-one-base_r-usr_local:
     IMAGE_TAG_SUFFIX: "-rbase.usr_local"
     DOCKERFILE_PATH: docker/Dockerfile.rbase.usr_local
   extends:
-      - .template_job__build_one_and_test
+    - .template_job__build_one_and_test
 
 test-one-base_r-custom:
   stage: test-one
@@ -152,7 +160,7 @@ test-one-base_r-custom:
     IMAGE_TAG_SUFFIX: "-rbase.custom"
     DOCKERFILE_PATH: docker/Dockerfile.rbase.custom
   extends:
-      - .template_job__build_one_and_test
+    - .template_job__build_one_and_test
 
 test-one-python-usr_local:
   stage: test-one
@@ -161,7 +169,7 @@ test-one-python-usr_local:
     IMAGE_TAG_SUFFIX: "-python.usr_local"
     DOCKERFILE_PATH: docker/Dockerfile.python.usr_local
   extends:
-      - .template_job__build_one_and_test
+    - .template_job__build_one_and_test
 
 test-one-python-custom:
   stage: test-one
@@ -170,7 +178,7 @@ test-one-python-custom:
     IMAGE_TAG_SUFFIX: "-python.custom"
     DOCKERFILE_PATH: docker/Dockerfile.python.custom
   extends:
-      - .template_job__build_one_and_test
+    - .template_job__build_one_and_test
 
 test-many-ubuntu22-usr_local:
   stage: test-many
@@ -179,7 +187,7 @@ test-many-ubuntu22-usr_local:
     IMAGE_TAG_SUFFIX: "-ubuntu22.usr_local"
     DOCKERFILE_PATH: docker/Dockerfile.ubuntu22.usr_local
   extends:
-      - .template_job__build_many_and_test
+    - .template_job__build_many_and_test
 
 test-many-python-usr_local:
   stage: test-many
@@ -188,7 +196,7 @@ test-many-python-usr_local:
     IMAGE_TAG_SUFFIX: "-python.usr_local"
     DOCKERFILE_PATH: docker/Dockerfile.python.usr_local
   extends:
-      - .template_job__build_many_and_test
+    - .template_job__build_many_and_test
 
 test-many-base_r-usr_local:
   stage: test-many
@@ -197,4 +205,4 @@ test-many-base_r-usr_local:
     IMAGE_TAG_SUFFIX: "-rbase.usr_local"
     DOCKERFILE_PATH: docker/Dockerfile.rbase.usr_local
   extends:
-      - .template_job__build_many_and_test
+    - .template_job__build_many_and_test
