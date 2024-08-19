@@ -4,7 +4,7 @@ stages:
 
 include:
   - project: "team113sanger/common/cicd-template"
-    ref: 0.3.3 # Use the latest Git Tag or if experimenting with new components use a Git SHA
+    ref: 0.3.4 # Use the latest Git Tag or if experimenting with new components use a Git SHA
     file: ".gitlab-ci-components.yml"
 
 #############
@@ -116,6 +116,15 @@ include:
 ############
 #   JOBS   #
 ############
+
+test-one-ubuntu22-via_github:
+  stage: test-one
+  variables:
+    PRE_FETCH_BASE_IMAGE: ubuntu:22.04
+    IMAGE_TAG_SUFFIX: "-ubuntu22.via_github"
+    DOCKERFILE_PATH: docker/Dockerfile.ubuntu22.via_github
+  extends:
+    - .template_job__build_one_and_test
 
 test-one-ubuntu22-usr_local:
   stage: test-one
