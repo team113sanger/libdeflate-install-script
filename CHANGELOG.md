@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [1.0.0]
 ### Added
+- An additional test to check downloading the script from the GitHub mirror works.
+
+### Changed
+- Updated the README.md with an installation quick start guide.
+
+## [1.0.0]
+### Added
 - A script to install libdeflate on a linux system.
 - Coverage of libdeflate versions from v1.9 to v1.20.
     - Handles `make` and `cmake` build systems.
