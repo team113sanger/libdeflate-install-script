@@ -15,7 +15,7 @@ IS_DEFAULT_INSTALL_DIR=1 # 1 == true, 0 == false
 PROGRAM_NAME="libdeflate"
 DEFAULT_INSTALL_DIR="/usr/local"
 TARBALL_SUFFIX=".tar.gz"
-SCRIPT_VERSION="1.0.0"
+SCRIPT_VERSION="1.0.1"
 REQUIRED_PROGRAMS=(curl make gcc tar sed cmake)  # cmake is required for versions >= 1.15
 URL_TEMPLATE="https://github.com/ebiggers/libdeflate/archive/{}.tar.gz"
 
